@@ -1,0 +1,27 @@
+{
+	"name": "practice",
+	"version": "0.0.1",
+	"description": "practice react 0.13 and webpack",
+	"main": "app/main.js",
+	"dependencies": {
+		"file-loader": "^0.8.1",
+		"jsx-loader": "^0.12.2",
+		"react": "^0.13.1",
+		"url-loader": "^0.5.5"
+	},
+	"devDependencies": {
+		"css-loader": "^0.9.1",
+		"extract-text-webpack-plugin": "^0.3.8",
+		"react": "^0.13.1",
+		"style-loader": "^0.8.3",
+		"webpack": "^1.7.3",
+		"webpack-dev-server": "^1.7.0",
+		"webpack-reload-plugin": "^0.1.2"
+ 	},
+ 	"scripts": {
+		"dev": "webpack-dev-server --devtool eval --progress --colors --content-base app",
+		"deploy": "webpack -p ",
+		"start": "webpack-dev-server --reload=localhost --progress --profile --colors --content-base build"
+	},
+	"author": "duncan"
+}
