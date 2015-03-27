@@ -7,17 +7,9 @@
   "dependencies": {
     "jquery": "~2.1.0",
     "bootstrap": "~3.2.0",
-    "Cookies": "",
-    "moment": "",
     "es5-shim": "",
     "es6-shim": "",
-    "interact": "~1.2.2",
-    "bootstrap-switch": "~3.3.1",
-    "smalot-bootstrap-datetimepicker": "latest",
-    "i18next": "1.7.7",
     "underscore": "1.7.0",
-    "highcharts": "~4.0.4",
-    "jquery-knob": "~1.2.11",
     "react": "~0.13.1"
   }
 }
