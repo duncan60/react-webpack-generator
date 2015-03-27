@@ -2,7 +2,7 @@
   "name": "starter-diy-app",
   "version": "0.0.1",
   "authors": [
-    "Mitch Chen <mitchblog@gmail.com>"
+    "Duncan Du <tmduncan60@gmail.com>"
   ],
   "dependencies": {
     "jquery": "~2.1.0",
