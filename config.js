@@ -14,7 +14,7 @@ var config = {
     },
 	resolve: {
 		alias      : {},
-		extensions : ['', '.css', '.js']
+		extensions : ['', '.css', '.scss', '.js']
 	},
 	output: {
 		path     : './app',
@@ -35,6 +35,11 @@ var config = {
 			{ test : /\.js$/, loader: 'jsx-loader' },
 			{ test : /\.(woff|ttf|svg|eot)$/, loader: 'url-loader' },
 			{ test : /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader') },
+			{ test: /\.scss$/,
+				loader: "style!css!compass?outputStyle=expanded&" +
+		        "includePaths[]=" + (path.resolve(__dirname, "./bower_components")) + "&" +
+		        "includePaths[]=" + (path.resolve(__dirname, "./node_modules"))
+			}
 		]
 	}
 };

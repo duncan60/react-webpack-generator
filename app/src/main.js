@@ -3,7 +3,7 @@
 */
 require('bootstrap.css');
 require('../assets/styles/style');
-require('../assets/styles/styleA');
+require("!css!compass!../assets/styles/styleA.scss");
 
 var React = require('react');
 var AppComponent = require('./AppComponent');
