@@ -12,4 +12,4 @@ import '../assets/styles/styleA';
 import React from 'react';
 import HelloMessage from './HelloMessage';
 
-React.render(<HelloMessage  name="Webpack & React"/>, document.getElementById('app'));
+React.render(<HelloMessage  name="Webpack & ReactJs"/>, document.getElementById('app'));

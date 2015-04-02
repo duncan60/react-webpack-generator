@@ -4,34 +4,26 @@
   "description": "practice react 0.13 and webpack",
   "main": "app/main.js",
   "dependencies": {
-    "compass-loader": "0.0.4",
-    "file-loader": "^0.8.1",
-    "jsx-loader": "^0.12.2",
-    "raw-loader": "^0.5.1",
     "react": "^0.13.1",
-    "react-tools": "^0.13.1",
-    "url-loader": "^0.5.5"
+    "webpack": "^1.7.3"
   },
   "devDependencies": {
-    "babel-core": "^4.7.16",
     "babel-loader": "^4.3.0",
+    "compass-loader": "0.0.4",
     "compass-mixins": "^0.12.3",
     "css-loader": "^0.9.1",
     "extract-text-webpack-plugin": "^0.3.8",
+    "file-loader": "^0.8.1",
     "jsx-loader": "^0.12.2",
-    "node-sass": "^3.0.0-pre",
-    "raw-loader": "^0.5.1",
-    "react": "^0.13.1",
     "sass-loader": "^1.0.0",
     "style-loader": "^0.8.3",
-    "webpack": "^1.7.3",
+    "url-loader": "^0.5.5",
     "webpack-dev-server": "^1.7.0",
     "webpack-reload-plugin": "^0.1.2"
   },
   "scripts": {
     "dev": "webpack-dev-server --devtool eval --progress --colors --content-base app",
-    "deploy": "webpack -p ",
-    "start": "webpack-dev-server --reload=localhost --progress --profile --colors --content-base build"
+    "deploy": "webpack -p "
   },
   "author": "duncan"
 }

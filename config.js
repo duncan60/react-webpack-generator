@@ -5,13 +5,13 @@ var webpack           = require("webpack"),
 	bower_dir         = __dirname + '/app/bower_components';
 var config = {
 	addVendor: function (name, path) {
-	    this.resolve.alias[name] = path;
-	    this.module.noParse.push(new RegExp('^' + name + '$'));
+		this.resolve.alias[name] = path;
+		this.module.noParse.push(new RegExp('^' + name + '$'));
 	},
 	entry: {
 		bundle  : './app/src/main.js',
 		vendors : ['jquery','bootstrap']
-    },
+	},
 	resolve: {
 		alias      : {},
 		extensions : ['', '.css', '.scss', '.js']
@@ -21,14 +21,14 @@ var config = {
 		filename : 'js/[name].js'
 	},
 	plugins: [
-        new ReloadPlugin('localhost'),
-        new ExtractTextPlugin('assets/styles/[name].css'),
-        new webpack.ProvidePlugin({
+		new ReloadPlugin('localhost'),
+		new ExtractTextPlugin('assets/styles/[name].css'),
+		new webpack.ProvidePlugin({
 			$                : "jquery",
 			jQuery           : "jquery",
 			"windows.jQuery" : "jquery"
 		})
-    ],
+	],
 	module: {
 		noParse: [],
 		loaders: [
