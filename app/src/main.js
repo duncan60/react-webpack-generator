@@ -1,11 +1,12 @@
 /*
 *require css
 */
-require('bootstrap.css');
-require('../assets/styles/style');
-require("!css!compass!../assets/styles/styleA.scss");
+import 'bootstrap.css';
+import '../assets/styles/style';
 
-var React = require('react');
-var AppComponent = require('./AppComponent');
+//require('../assets/styles/styleA.scss');
 
-React.render(<AppComponent/>, document.getElementById('app'));
+import React from 'react';
+import HelloMessage from './HelloMessage';
+
+React.render(<HelloMessage  name="Webpack React"/>, document.getElementById('app'));

@@ -32,14 +32,14 @@ var config = {
 	module: {
 		noParse: [],
 		loaders: [
-			{ test : /\.js$/, loader: 'jsx-loader' },
+			{ test : /\.(js|jsx)$/, loader: 'babel', include: path.join(__dirname, 'app/src/')},
 			{ test : /\.(woff|ttf|svg|eot)$/, loader: 'url-loader' },
-			{ test : /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader') },
-			{ test: /\.scss$/,
-				loader: "style!css!compass?outputStyle=expanded&" +
-		        "includePaths[]=" + (path.resolve(__dirname, "./bower_components")) + "&" +
-		        "includePaths[]=" + (path.resolve(__dirname, "./node_modules"))
-			}
+			{ test : /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader') }//,
+			// { test: /\.scss$/,
+			// 	loader: "style!css!compass?outputStyle=expanded&" +
+		 //        "includePaths[]=" + (path.resolve(__dirname, "./bower_components")) + "&" +
+		 //        "includePaths[]=" + (path.resolve(__dirname, "./node_modules"))
+			// }
 		]
 	}
 };

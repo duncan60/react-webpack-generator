@@ -6,13 +6,18 @@
   "dependencies": {
     "file-loader": "^0.8.1",
     "jsx-loader": "^0.12.2",
+    "raw-loader": "^0.5.1",
     "react": "^0.13.1",
+    "react-tools": "^0.13.1",
     "url-loader": "^0.5.5"
   },
   "devDependencies": {
+    "babel-core": "^4.7.16",
+    "babel-loader": "^4.3.0",
     "compass-mixins": "^0.12.3",
     "css-loader": "^0.9.1",
     "extract-text-webpack-plugin": "^0.3.8",
+    "jsx-loader": "^0.12.2",
     "node-sass": "^3.0.0-pre",
     "raw-loader": "^0.5.1",
     "react": "^0.13.1",
