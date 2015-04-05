@@ -27,11 +27,7 @@ var config = {
 		new ExtractTextPlugin('assets/styles/[name].css'),
 		new HtmlWebpackPlugin({
 			filename: 'index.html',
-			template: 'app/index.html',
-			assets: {
-			    bundleStyle: 'assets/head_bundle.js',
-			    main: 'assets/main_bundle.js'
-			  }
+			template: 'app/index.html'
 		}),
 		new webpack.ProvidePlugin({
 			$                : 'jquery',
@@ -45,7 +41,7 @@ var config = {
 			{ test : /\.(js|jsx)$/, loader: 'babel!jshint', include: path.join(__dirname, 'app/src/')},
 			{ test : /\.(woff|ttf|svg|eot)$/, loader: 'url-loader' },
 			{ test : /\.(css|scss)$/, loader: ExtractTextPlugin.extract('style', 'css') },
-			{ test : /\.scss$/, loader: 'style!css!sass?outputStyle=expanded'}
+			{ test : /\.scss$/, loader: 'style!css!compass?outputStyle=expanded'}
 		]
 	},
 	jshint: {

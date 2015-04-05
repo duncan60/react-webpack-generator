@@ -3,7 +3,7 @@
 */
 import 'bootstrap.css';
 import '../assets/styles/style';
-//import '../assets/styles/styleA';
+import '../assets/styles/styleA';
 
 
 /*

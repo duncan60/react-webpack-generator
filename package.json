@@ -23,7 +23,7 @@
 		},
 	"scripts": {
 		"test": "webpack-dev-server --devtool eval --progress --colors --content-base app",
-		"dev": "webpack-dev-server --content-base app",
+		"dev": "webpack-dev-server  --progress --content-base app",
 		"deploy": "NODE_ENV=production webpack -p"
 	},
 	"author": "duncanDu"
