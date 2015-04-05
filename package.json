@@ -1,29 +1,30 @@
 {
-  "name": "practice",
-  "version": "0.0.1",
-  "description": "practice react 0.13 and webpack",
-  "main": "app/main.js",
-  "dependencies": {
-    "react": "^0.13.1",
-    "webpack": "^1.7.3"
-  },
-  "devDependencies": {
-    "babel-loader": "^4.3.0",
-    "compass-loader": "0.0.4",
-    "compass-mixins": "^0.12.3",
-    "css-loader": "^0.9.1",
-    "extract-text-webpack-plugin": "^0.3.8",
-    "file-loader": "^0.8.1",
-    "jsx-loader": "^0.12.2",
-    "sass-loader": "^1.0.0",
-    "style-loader": "^0.8.3",
-    "url-loader": "^0.5.5",
-    "webpack-dev-server": "^1.7.0",
-    "webpack-reload-plugin": "^0.1.2"
-  },
-  "scripts": {
-    "dev": "webpack-dev-server --devtool eval --progress --colors --content-base app",
-    "deploy": "webpack -p "
-  },
-  "author": "duncan"
+	"name": "webpack-react",
+	"version": "0.0.1",
+	"description": "react 0.13.1 and webpack",
+	"main": "app/main.js",
+	"dependencies": {
+		"react": "^0.13.1",
+		"webpack": "^1.7.3"
+	},
+	"devDependencies": {
+		"babel-loader": "^4.3.0",
+		"compass-loader": "0.0.4",
+		"compass-mixins": "^0.12.3",
+		"css-loader": "^0.9.1",
+		"extract-text-webpack-plugin": "^0.3.8",
+		"file-loader": "^0.8.1",
+		"html-webpack-plugin": "^1.1.0",
+		"jsx-loader": "^0.12.2",
+		"style-loader": "^0.8.3",
+		"url-loader": "^0.5.5",
+		"webpack-dev-server": "^1.7.0",
+		"webpack-reload-plugin": "^0.1.2"
+		},
+	"scripts": {
+		"test": "webpack-dev-server --devtool eval --progress --colors --content-base app",
+		"dev": "webpack-dev-server --content-base app",
+		"deploy": "NODE_ENV=production webpack -p"
+	},
+	"author": "duncanDu"
 }

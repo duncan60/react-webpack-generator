@@ -1,8 +1,10 @@
-var webpack           = require("webpack"),
-	path              = require('path');
-	ReloadPlugin      = require('webpack-reload-plugin'),//reload auto
-	ExtractTextPlugin = require('extract-text-webpack-plugin'),//css 獨立檔案
+var webpack           = require('webpack'),
+	path              = require('path'),
+	ReloadPlugin      = require('webpack-reload-plugin'),
+	ExtractTextPlugin = require('extract-text-webpack-plugin'),
+	HtmlWebpackPlugin = require('html-webpack-plugin'),
 	bower_dir         = __dirname + '/app/bower_components';
+	
 var config = {
 	addVendor: function (name, path) {
 		this.resolve.alias[name] = path;
@@ -17,26 +19,39 @@ var config = {
 		extensions : ['', '.css', '.scss', '.js']
 	},
 	output: {
-		path     : './app',
+		path     : process.env.NODE_ENV === 'production' ? './dist' : './app',
 		filename : 'js/[name].js'
 	},
 	plugins: [
 		new ReloadPlugin('localhost'),
 		new ExtractTextPlugin('assets/styles/[name].css'),
+		new HtmlWebpackPlugin({
+			filename: 'index.html',
+			template: 'app/index.html',
+			assets: {
+			    bundleStyle: 'assets/head_bundle.js',
+			    main: 'assets/main_bundle.js'
+			  }
+		}),
 		new webpack.ProvidePlugin({
-			$                : "jquery",
-			jQuery           : "jquery",
-			"windows.jQuery" : "jquery"
+			$                : 'jquery',
+			jQuery           : 'jquery',
+			'windows.jQuery' : 'jquery'
 		})
 	],
 	module: {
 		noParse: [],
 		loaders: [
-			{ test : /\.(js|jsx)$/, loader: 'babel', include: path.join(__dirname, 'app/src/')},
+			{ test : /\.(js|jsx)$/, loader: 'babel!jshint', include: path.join(__dirname, 'app/src/')},
 			{ test : /\.(woff|ttf|svg|eot)$/, loader: 'url-loader' },
-			{ test : /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader') },
-			{ test: /\.scss$/, loader: "style!css!compass?outputStyle=expanded&"}
+			{ test : /\.(css|scss)$/, loader: ExtractTextPlugin.extract('style', 'css') },
+			{ test : /\.scss$/, loader: 'style!css!sass?outputStyle=expanded'}
 		]
+	},
+	jshint: {
+		camelcase  : true,
+		emitErrors : false,
+		failOnHint : false
 	}
 };
 
@@ -45,3 +60,4 @@ config.addVendor('bootstrap', bower_dir + '/bootstrap/dist/js/bootstrap.min.js')
 
 config.addVendor('bootstrap.css', bower_dir + '/bootstrap/dist/css/bootstrap.min.css');
 module.exports = config;
+
