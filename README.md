@@ -1,4 +1,4 @@
-# webpack_react
-webpack_react
+# react-webpack-generator
+react-webpack-generator
 
 
