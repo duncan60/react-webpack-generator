@@ -23,9 +23,9 @@
     "webpack-reload-plugin": "^0.1.2"
   },
   "scripts": {
-    "test": "webpack-dev-server --devtool eval --progress --colors --content-base app",
-    "dev": "webpack-dev-server  --progress --content-base app",
-    "deploy": "NODE_ENV=production webpack -p"
+    "test": "webpack-dev-server --config webpack-dev-server.config.js --devtool eval --progress --colors --content-base app",
+    "dev": "webpack-dev-server --config webpack-dev-server.config.js  --progress --content-base app",
+    "deploy": "webpack -p --config webpack-deploy.config.js"
   },
   "author": "duncanDu"
 }
