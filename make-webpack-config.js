@@ -53,10 +53,14 @@ module.exports = function(options) {
 		module: {
 			noParse: noParse,
 			loaders: [
-				{ test : /\.(js|jsx)$/, loader: 'babel!jshint', include: path.join(__dirname, 'app/src/')},
+				{ test : /\.(js|jsx)$/, loader: 'babel', include: path.join(__dirname, 'app/src/')},
 				{ test : /\.(woff|ttf|svg|eot)$/, loader: 'url-loader' },
 				{ test : /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader') },
-				{ test : /\.scss$/, loader: 'style!css!compass?outputStyle=expanded&'}
+				{
+	                test: /\.scss$/,
+	                loader: ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader?includePaths[]=' + path.resolve(__dirname, './node_modules/compass-mixins/lib') + '&includePaths[]=' + path.resolve(__dirname, './mixins/app_mixins'))
+	            }
+
 			]
 		},
 		jshint: jshint
