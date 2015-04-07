@@ -4,7 +4,7 @@ var webpack           = require('webpack'),
 	ExtractTextPlugin = require('extract-text-webpack-plugin'),
 	HtmlWebpackPlugin = require('html-webpack-plugin'),
 	bower_dir         = __dirname + '/app/bower_components';
-	
+
 var config = {
 	addVendor: function (name, path) {
 		this.resolve.alias[name] = path;
@@ -40,8 +40,8 @@ var config = {
 		loaders: [
 			{ test : /\.(js|jsx)$/, loader: 'babel!jshint', include: path.join(__dirname, 'app/src/')},
 			{ test : /\.(woff|ttf|svg|eot)$/, loader: 'url-loader' },
-			{ test : /\.(css|scss)$/, loader: ExtractTextPlugin.extract('style', 'css') },
-			{ test : /\.scss$/, loader: 'style!css!compass?outputStyle=expanded'}
+			{ test : /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader') },
+			{ test : /\.scss$/, loader: 'style!css!compass?outputStyle=expanded&'}
 		]
 	},
 	jshint: {
