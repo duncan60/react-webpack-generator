@@ -1,3 +1,4 @@
 module.exports = require("./make-webpack-config")({
-	outputPath: './app',
+	outputPath : './app',
+	status     : 'dev'
 });
