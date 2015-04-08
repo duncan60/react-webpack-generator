@@ -31,8 +31,8 @@ module.exports = function(options) {
 			{ test : /\.(js|jsx)$/, loader:'react-hot!babel!jshint', include: path.join(__dirname, 'app/src/')},
 			{ test : /\.css$/, loader:'style-loader!css-loader' },
 			{
-	            test: /\.scss$/,
-	            loader: 'style-loader!css-loader!sass-loader?includePaths[]=' + path.resolve(__dirname, './node_modules/compass-mixins/lib')
+				test   : /\.scss$/,
+				loader : 'style-loader!css-loader!sass-loader?includePaths[]=' + path.resolve(__dirname, './node_modules/compass-mixins/lib')
 	        }
 		);
 	}
@@ -46,8 +46,8 @@ module.exports = function(options) {
 			{ test : /\.(js|jsx)$/, loader:'babel', include: path.join(__dirname, 'app/src/')},
 			{ test : /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader') },
 			{
-	            test: /\.scss$/,
-	            loader: ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader?includePaths[]=' + path.resolve(__dirname, './node_modules/compass-mixins/lib'))
+				test   : /\.scss$/,
+				loader : ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader?includePaths[]=' + path.resolve(__dirname, './node_modules/compass-mixins/lib'))
 	        }
 		);
 		plugins.push(
@@ -59,17 +59,27 @@ module.exports = function(options) {
 			new webpack.optimize.UglifyJsPlugin(),
 			new webpack.optimize.DedupePlugin(),
 			new webpack.DefinePlugin({
-				"process.env": {
-					NODE_ENV: JSON.stringify("production")
+				"process.env" : {
+					NODE_ENV : JSON.stringify("production")
 				}
 			})
 		);
 	}
 
 	var jshint = {
-		camelcase  : true,
-		emitErrors : false,
-		failOnHint : false
+			esnext    : true,
+			bitwise   : true,
+			camelcase : false,
+			curly     : true,
+			eqeqeq    : true,
+			immed     : true,
+			indent    : 4,
+			latedef   : true,
+			newcap    : true,
+			noarg     : true,
+			quotmark  : 'single',
+			undef     : true,
+			strict    : true
 	};
 	var addVendor = function (name, path) {
 		resolve.alias[name] = path;

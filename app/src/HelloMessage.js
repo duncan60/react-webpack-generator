@@ -10,6 +10,7 @@ module.exports = class HelloMessage extends React.Component {
   	onClickHandeler() {
 		this.setState({tick : this.state.tick + 1});
   	}
+  	/* jshint ignore:start */
   	render() {
 		return (
 			<div>
@@ -18,4 +19,5 @@ module.exports = class HelloMessage extends React.Component {
 				<p onClick={this.onClickHandeler.bind(this)}>{this.state.tick}</p>
 			</div>);
   	}
+  	/* jshint ignore:end */
 }
