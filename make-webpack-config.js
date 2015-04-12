@@ -86,7 +86,7 @@ module.exports = function(options) {
 			vendors.push(name);
 			entry.vendors = vendors;
 		}
-	}
+	};
 	//Vendor style
 	addVendor('css', 'bootstrap.css', bower_dir + '/bootstrap/dist/css/bootstrap.min.css');
 	//Vendor plugin
