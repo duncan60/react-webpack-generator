@@ -6,7 +6,11 @@ var webpack           = require('webpack'),
 
 module.exports = function(options) {
 	var outputPath = options.outputPath;
-	var entry;
+	var entry = {
+			bundle  : null,
+			vendors : null
+		};
+	var vendors = [];
 	var noParse = [];
 	var loaders = [{ test : /\.(woff|ttf|svg|eot|jpg|png|git)$/, loader: 'url-loader' }];
 	var resolve = {
@@ -23,10 +27,7 @@ module.exports = function(options) {
 	];
 
 	if (options.status === 'dev') {
-		entry = {
-			bundle  : ['webpack-dev-server/client?http://localhost:8080','webpack/hot/only-dev-server','./app/src/main'],
-			vendors : ['jquery','bootstrap']
-		};
+		entry.bundle = ['webpack-dev-server/client?http://localhost:8080','webpack/hot/only-dev-server','./app/src/main'];
 		loaders.push(
 			{ test : /\.(js|jsx)$/, loader:'react-hot!babel!jshint', include: path.join(__dirname, 'app/src/')},
 			{ test : /\.css$/, loader:'style-loader!css-loader' },
@@ -38,10 +39,7 @@ module.exports = function(options) {
 	}
 
 	if (options.status === 'deploy') {
-		entry = {
-			bundle  : './app/src/main',
-			vendors : ['jquery','bootstrap']
-		};
+		entry.bundle = './app/src/main';
 		loaders.push(
 			{ test : /\.(js|jsx)$/, loader:'babel', include: path.join(__dirname, 'app/src/')},
 			{ test : /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader') },
@@ -81,16 +79,19 @@ module.exports = function(options) {
 			undef     : true,
 			strict    : true
 	};
-	var addVendor = function (name, path) {
+	var addVendor = function (type, name, path) {
 		resolve.alias[name] = path;
 		noParse.push(new RegExp('^' + name + '$'));
+		if (type === 'js'){
+			vendors.push(name);
+			entry.vendors = vendors;
+		}
 	}
 	//Vendor style
-	addVendor('bootstrap.css', bower_dir + '/bootstrap/dist/css/bootstrap.min.css');
+	addVendor('css', 'bootstrap.css', bower_dir + '/bootstrap/dist/css/bootstrap.min.css');
 	//Vendor plugin
-	addVendor('jquery', bower_dir + '/jquery/dist/jquery.min.js');
-	addVendor('bootstrap', bower_dir + '/bootstrap/dist/js/bootstrap.min.js');
-
+	addVendor('js', 'jquery', bower_dir + '/jquery/dist/jquery.min.js');
+	addVendor('js', 'bootstrap', bower_dir + '/bootstrap/dist/js/bootstrap.min.js');
 	return{
 		entry   : entry,
 		output  : {
