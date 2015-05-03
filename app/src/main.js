@@ -3,8 +3,6 @@
 */
 import 'bootstrap.css';
 import '../assets/styles/style';
-import '../assets/styles/compass.style';
-
 
 /*
 *require react

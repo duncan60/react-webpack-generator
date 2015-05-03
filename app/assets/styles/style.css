@@ -1,4 +1,8 @@
-
+:root {
+	--fontSize:18px;
+};
 body {
     background: rgb(201, 201, 201);
+    font-size: var(--fontSize);
+    transform: rotate(4deg) scale(1) skew(1deg) translate(10px);
 }

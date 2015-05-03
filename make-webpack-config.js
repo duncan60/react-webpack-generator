@@ -2,7 +2,9 @@ var webpack           = require('webpack'),
 	path              = require('path'),
 	ExtractTextPlugin = require('extract-text-webpack-plugin'),
 	HtmlWebpackPlugin = require('html-webpack-plugin'),
-	bower_dir         = __dirname + '/app/bower_components';
+	bower_dir         = __dirname + '/app/bower_components',
+	autoprefixer      = require('autoprefixer-core'),
+	csswring          = require('csswring');
 
 module.exports = function(options) {
 	var outputPath = options.outputPath;
@@ -30,11 +32,7 @@ module.exports = function(options) {
 		entry.bundle = ['webpack-dev-server/client?http://localhost:8080','webpack/hot/only-dev-server','./app/src/main'];
 		loaders.push(
 			{ test : /\.(js|jsx)$/, loader:'react-hot!babel!jshint', include: path.join(__dirname, 'app/src/')},
-			{ test : /\.css$/, loader:'style-loader!css-loader' },
-			{
-				test   : /\.scss$/,
-				loader : 'style-loader!css-loader!sass-loader?includePaths[]=' + path.resolve(__dirname, './node_modules/compass-mixins/lib')
-	        }
+			{ test : /\.css$/, loader:'style!css!cssnext!postcss' }
 		);
 	}
 
@@ -42,11 +40,7 @@ module.exports = function(options) {
 		entry.bundle = './app/src/main';
 		loaders.push(
 			{ test : /\.(js|jsx)$/, loader:'babel', include: path.join(__dirname, 'app/src/')},
-			{ test : /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader') },
-			{
-				test   : /\.scss$/,
-				loader : ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader?includePaths[]=' + path.resolve(__dirname, './node_modules/compass-mixins/lib'))
-	        }
+			{ test : /\.css$/, loader: ExtractTextPlugin.extract('style', 'css!cssnext!postcss') }
 		);
 		plugins.push(
 			new HtmlWebpackPlugin({
@@ -102,6 +96,7 @@ module.exports = function(options) {
 			noParse : noParse,
 			loaders : loaders
 		},
+		postcss : [autoprefixer, csswring],
 		resolve : resolve,
 		plugins : plugins,
 		jshint  : jshint
