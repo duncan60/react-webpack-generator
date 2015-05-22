@@ -12,7 +12,6 @@ h1{
 	transform  : rotate(4deg) scale(1) skew(1deg) translate(10px);
 }
 p{
-	
 	margin-top: var(--gap)px;
 }
 

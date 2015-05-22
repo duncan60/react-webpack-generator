@@ -14,7 +14,7 @@ module.exports = function(options) {
 		};
 	var vendors = [];
 	var noParse = [];
-	var loaders = [{ test : /\.(woff|ttf|svg|eot|jpg|png|git)$/, loader: 'url-loader' }];
+	var loaders = [{ test : /\.(woff|ttf|svg|eot|jpg|png|git)$/, loader: 'url-loader?limit=10' }];
 	var resolve = {
 		alias      : {},
 		extensions : ['', '.css', '.scss', '.js']
@@ -32,6 +32,7 @@ module.exports = function(options) {
 		entry.bundle = ['webpack-dev-server/client?http://localhost:8080','webpack/hot/only-dev-server','./app/src/main'];
 		loaders.push(
 			{ test : /\.(js|jsx)$/, loader:'react-hot!babel!jshint', include: path.join(__dirname, 'app/src/')},
+			{ test : /\.scss$/, loader:'style!css!cssnext!postcss!sass?includePaths[]=' + path.resolve(__dirname, './node_modules/compass-mixins/lib') },
 			{ test : /\.css$/, loader:'style!css!cssnext!postcss' }
 		);
 	}
@@ -40,6 +41,7 @@ module.exports = function(options) {
 		entry.bundle = './app/src/main';
 		loaders.push(
 			{ test : /\.(js|jsx)$/, loader:'babel', include: path.join(__dirname, 'app/src/')},
+			{ test : /\.scss$/, loader:ExtractTextPlugin.extract('style','css!cssnext!postcss!sass?includePaths[]=' + path.resolve(__dirname, './node_modules/compass-mixins/lib')) },
 			{ test : /\.css$/, loader: ExtractTextPlugin.extract('style', 'css!cssnext!postcss') }
 		);
 		plugins.push(

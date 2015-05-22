@@ -1,0 +1,10 @@
+@import "compass/css3";
+body{
+	font-size: 12px;
+}
+p{
+	padding: 10px;
+	background-color: #CCC;
+	font-size:20px;
+	@include border-radius(5px);
+}
