@@ -5,7 +5,8 @@ var webpack           = require('webpack'),
 	bower_dir         = __dirname + '/app/bower_components',
 	autoprefixer      = require('autoprefixer-core'),
 	csswring          = require('csswring');
-
+var pkg = require('./package.json');
+var util = require('util');
 module.exports = function(options) {
 	var outputPath = options.outputPath;
 	var entry = {
@@ -29,9 +30,17 @@ module.exports = function(options) {
 	];
 
 	if (options.status === 'dev') {
-		entry.bundle = ['webpack-dev-server/client?http://localhost:8080','webpack/hot/only-dev-server','./app/src/main'];
+		entry.bundle = ['./app/src/main'];
+		entry.bundle.push(
+		    util.format(
+		      'webpack-dev-server/client?http://%s:%d',
+		      pkg.config.devHost,
+		      pkg.config.devPort
+		    )
+		);
+		entry.bundle.push('webpack/hot/dev-server');
 		loaders.push(
-			{ test : /\.(js|jsx)$/, loader:'react-hot!babel!jshint', include: path.join(__dirname, 'app/src/')},
+			{ test : /\.(js|jsx)$/, loader:'react-hot!babel', include: path.join(__dirname, 'app/src/')},
 			{ test : /\.scss$/, loader:'style!css!cssnext!postcss!sass?includePaths[]=' + path.resolve(__dirname, './node_modules/compass-mixins/lib') },
 			{ test : /\.css$/, loader:'style!css!cssnext!postcss' }
 		);
@@ -60,21 +69,7 @@ module.exports = function(options) {
 		);
 	}
 
-	var jshint = {
-			esnext    : true,
-			bitwise   : true,
-			camelcase : false,
-			curly     : true,
-			eqeqeq    : true,
-			immed     : true,
-			indent    : 4,
-			latedef   : true,
-			newcap    : true,
-			noarg     : true,
-			quotmark  : 'single',
-			undef     : true,
-			strict    : true
-	};
+
 	var addVendor = function (type, name, path) {
 		resolve.alias[name] = path;
 		noParse.push(new RegExp('^' + name + '$'));
@@ -92,7 +87,7 @@ module.exports = function(options) {
 		entry   : entry,
 		output  : {
 			path     :  outputPath,
-			filename : 'js/[name].js'
+			filename : 'js/[name].js',
 		},
 		module  : {
 			noParse : noParse,
@@ -101,7 +96,10 @@ module.exports = function(options) {
 		postcss : [autoprefixer, csswring],
 		resolve : resolve,
 		plugins : plugins,
-		jshint  : jshint
+		devServer: {
+		    contentBase: 'app',
+		    hot: true
+		  }
 	}
 }
 
