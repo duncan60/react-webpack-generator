@@ -2,51 +2,53 @@ var webpack           = require('webpack'),
 	path              = require('path'),
 	ExtractTextPlugin = require('extract-text-webpack-plugin'),
 	HtmlWebpackPlugin = require('html-webpack-plugin'),
-	bower_dir         = __dirname + '/app/bower_components';
-
+	bower_dir         = __dirname + '/app/bower_components',
+	autoprefixer      = require('autoprefixer-core'),
+	csswring          = require('csswring');
 module.exports = function(options) {
-	var outputPath = options.outputPath;
-	var entry = {
+	var outputPath = options.outputPath,
+		entry = {
 			bundle  : null,
 			vendors : null
+		},
+		vendors = [],
+		noParse = [],
+		loaders = [],
+		resolve = {
+			alias      : {},
+			extensions : ['', '.css', '.scss', '.js']
 		};
-	var vendors = [];
-	var noParse = [];
-	var loaders = [{ test : /\.(woff|ttf|svg|eot|jpg|png|git)$/, loader: 'url-loader' }];
-	var resolve = {
-		alias      : {},
-		extensions : ['', '.css', '.scss', '.js']
-	};
 	var plugins = [
 		new webpack.ProvidePlugin({
 			$                : 'jquery',
 			jQuery           : 'jquery',
 			'windows.jQuery' : 'jquery'
 		}),
-		new webpack.NoErrorsPlugin()
+		new webpack.HotModuleReplacementPlugin()
 	];
 
 	if (options.status === 'dev') {
-		entry.bundle = ['webpack-dev-server/client?http://localhost:8080','webpack/hot/only-dev-server','./app/src/main'];
+		entry.bundle = [
+			'webpack-dev-server/client?http://localhost:8080',
+			'webpack/hot/only-dev-server',
+			'./app/src/main'
+		];
 		loaders.push(
-			{ test : /\.(js|jsx)$/, loader:'react-hot!babel!jshint', include: path.join(__dirname, 'app/src/')},
-			{ test : /\.css$/, loader:'style-loader!css-loader' },
-			{
-				test   : /\.scss$/,
-				loader : 'style-loader!css-loader!sass-loader?includePaths[]=' + path.resolve(__dirname, './node_modules/compass-mixins/lib')
-	        }
+			{ test : /\.(woff|ttf|svg|eot|jpg|png|git)$/, loader: 'url-loader' },
+			{ test : /\.(js|jsx)$/, loader:'react-hot!babel', include: path.join(__dirname, 'app/src/')},
+			{ test : /\.scss$/, loader:'style!css!postcss!sass?includePaths[]=' + path.resolve(__dirname, './node_modules/compass-mixins/lib') },
+			{ test : /\.css$/, loader:'style!css' }
 		);
 	}
+
 
 	if (options.status === 'deploy') {
 		entry.bundle = './app/src/main';
 		loaders.push(
+			{ test : /\.(woff|ttf|svg|eot|jpg|png|git)$/, loader: 'url-loader' },
 			{ test : /\.(js|jsx)$/, loader:'babel', include: path.join(__dirname, 'app/src/')},
-			{ test : /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader') },
-			{
-				test   : /\.scss$/,
-				loader : ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader?includePaths[]=' + path.resolve(__dirname, './node_modules/compass-mixins/lib'))
-	        }
+			{ test : /\.scss$/, loader:ExtractTextPlugin.extract('style','css!postcss!sass?includePaths[]=' + path.resolve(__dirname, './node_modules/compass-mixins/lib')) },
+			{ test : /\.css$/, loader: ExtractTextPlugin.extract('style', 'css') }
 		);
 		plugins.push(
 			new HtmlWebpackPlugin({
@@ -60,25 +62,12 @@ module.exports = function(options) {
 				"process.env" : {
 					NODE_ENV : JSON.stringify("production")
 				}
-			})
+			}),
+			new webpack.NoErrorsPlugin()
 		);
 	}
 
-	var jshint = {
-			esnext    : true,
-			bitwise   : true,
-			camelcase : false,
-			curly     : true,
-			eqeqeq    : true,
-			immed     : true,
-			indent    : 4,
-			latedef   : true,
-			newcap    : true,
-			noarg     : true,
-			quotmark  : 'single',
-			undef     : true,
-			strict    : true
-	};
+
 	var addVendor = function (type, name, path) {
 		resolve.alias[name] = path;
 		noParse.push(new RegExp('^' + name + '$'));
@@ -92,6 +81,7 @@ module.exports = function(options) {
 	//Vendor plugin
 	addVendor('js', 'jquery', bower_dir + '/jquery/dist/jquery.min.js');
 	addVendor('js', 'bootstrap', bower_dir + '/bootstrap/dist/js/bootstrap.min.js');
+
 	return{
 		entry   : entry,
 		output  : {
@@ -102,9 +92,9 @@ module.exports = function(options) {
 			noParse : noParse,
 			loaders : loaders
 		},
+		postcss : [autoprefixer, csswring],
 		resolve : resolve,
-		plugins : plugins,
-		jshint  : jshint
+		plugins : plugins
 	}
 }
 

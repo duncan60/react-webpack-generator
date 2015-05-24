@@ -1,0 +1,25 @@
+@import "compass/css3";
+$bodyColor:#E0E0E0;
+$fontSize:18px;
+
+body{
+	font-size: 12px;
+}
+p{
+	padding: 10px;
+	background-color: #CCC;
+	font-size:20px;
+	@include border-radius(5px);
+}
+
+body {
+	background : $bodyColor;
+	font-size  : $fontSize;
+	background-image: url("../images/icon.jpg");
+}
+h1{
+	transform  : rotate(4deg) scale(1) skew(1deg) translate(10px);
+}
+p{
+	margin-top: 20px;
+}
