@@ -1,9 +1,8 @@
 /*
 *require css
 */
-// import 'bootstrap.css';
- import '../assets/styles/style';
-// import '../assets/styles/compassStyle';
+import 'bootstrap.css';
+import '../assets/styles/compassStyle';
 /*
 *require react
 */

@@ -41,8 +41,8 @@ module.exports = function(options) {
 		entry.bundle.push('webpack/hot/dev-server');
 		loaders.push(
 			{ test : /\.(js|jsx)$/, loader:'react-hot!babel', include: path.join(__dirname, 'app/src/')},
-			{ test : /\.scss$/, loader:'style!css!cssnext!postcss!sass?includePaths[]=' + path.resolve(__dirname, './node_modules/compass-mixins/lib') },
-			{ test : /\.css$/, loader:'style!css!cssnext!postcss' }
+			{ test : /\.scss$/, loader:'style!css!postcss!sass?includePaths[]=' + path.resolve(__dirname, './node_modules/compass-mixins/lib') },
+			{ test : /\.css$/, loader:'style!css' }
 		);
 	}
 
@@ -50,8 +50,8 @@ module.exports = function(options) {
 		entry.bundle = './app/src/main';
 		loaders.push(
 			{ test : /\.(js|jsx)$/, loader:'babel', include: path.join(__dirname, 'app/src/')},
-			{ test : /\.scss$/, loader:ExtractTextPlugin.extract('style','css!cssnext!postcss!sass?includePaths[]=' + path.resolve(__dirname, './node_modules/compass-mixins/lib')) },
-			{ test : /\.css$/, loader: ExtractTextPlugin.extract('style', 'css!cssnext!postcss') }
+			{ test : /\.scss$/, loader:ExtractTextPlugin.extract('style','css!postcss!sass?includePaths[]=' + path.resolve(__dirname, './node_modules/compass-mixins/lib')) },
+			{ test : /\.css$/, loader: ExtractTextPlugin.extract('style', 'css') }
 		);
 		plugins.push(
 			new HtmlWebpackPlugin({
@@ -67,8 +67,7 @@ module.exports = function(options) {
 				"process.env" : {
 					NODE_ENV : JSON.stringify("production")
 				}
-			}),
-			new webpack.NoErrorsPlugin()
+			})
 		);
 	}
 
@@ -102,7 +101,7 @@ module.exports = function(options) {
 		devServer: {
 		    contentBase: 'app',
 		    hot: true
-		  }
+		}
 	}
 }
 
