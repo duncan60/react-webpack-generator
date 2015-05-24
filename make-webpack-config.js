@@ -7,6 +7,7 @@ var webpack           = require('webpack'),
 	csswring          = require('csswring');
 var pkg = require('./package.json');
 var util = require('util');
+var fileLoader = 'file-loader?name=[path][name].[ext]';
 module.exports = function(options) {
 	var outputPath = options.outputPath;
 	var entry = {
@@ -15,7 +16,7 @@ module.exports = function(options) {
 		};
 	var vendors = [];
 	var noParse = [];
-	var loaders = [{ test : /\.(woff|ttf|svg|eot|jpg|png|git)$/, loader: 'url-loader?limit=10' }];
+	var loaders = [{ test : /\.(woff|ttf|svg|eot|jpg|png|git)$/, loader: fileLoader }];
 	var resolve = {
 		alias      : {},
 		extensions : ['', '.css', '.scss', '.js']
@@ -26,7 +27,7 @@ module.exports = function(options) {
 			jQuery           : 'jquery',
 			'windows.jQuery' : 'jquery'
 		}),
-		new webpack.NoErrorsPlugin()
+		new webpack.HotModuleReplacementPlugin()
 	];
 
 	if (options.status === 'dev') {
@@ -58,16 +59,15 @@ module.exports = function(options) {
 				filename : 'index.html',
 				template : 'app/index.html'
 			}),
-			new ExtractTextPlugin('assets/styles/[name].css',{
-      allChunks: true
-    }),
+			new ExtractTextPlugin('assets/styles/[name].css'),
 			new webpack.optimize.UglifyJsPlugin(),
 			new webpack.optimize.DedupePlugin(),
 			new webpack.DefinePlugin({
 				"process.env" : {
 					NODE_ENV : JSON.stringify("production")
 				}
-			})
+			}),
+			new webpack.NoErrorsPlugin()
 		);
 	}
 
@@ -89,7 +89,7 @@ module.exports = function(options) {
 		entry   : entry,
 		output  : {
 			path     :  outputPath,
-			filename : 'js/[name].js',
+			filename : 'js/[name].js'
 		},
 		module  : {
 			noParse : noParse,
