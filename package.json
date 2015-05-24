@@ -1,5 +1,5 @@
 {
-  "name": "webpack-react",
+  "name": "webpack-react-generator",
   "version": "0.0.1",
   "description": "react 0.13 and webpack",
   "main": "app/main.js",
