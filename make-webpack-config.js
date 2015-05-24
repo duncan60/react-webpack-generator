@@ -58,14 +58,17 @@ module.exports = function(options) {
 				filename : 'index.html',
 				template : 'app/index.html'
 			}),
-			new ExtractTextPlugin('assets/styles/[name].css'),
+			new ExtractTextPlugin('assets/styles/[name].css',{
+      allChunks: true
+    }),
 			new webpack.optimize.UglifyJsPlugin(),
 			new webpack.optimize.DedupePlugin(),
 			new webpack.DefinePlugin({
 				"process.env" : {
 					NODE_ENV : JSON.stringify("production")
 				}
-			})
+			}),
+			new webpack.NoErrorsPlugin()
 		);
 	}
 
