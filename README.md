@@ -5,7 +5,7 @@ generator for react and webpack
 
 * Compilation with webpack
 * React 0.13.^ and ES6
-* Stylesheets can be CSS, SASS, Compass
+* Stylesheets can be CSS, SASS, Compass, postcss
 * Generate separate css file and js plugin
 
 ##Install npm
@@ -22,8 +22,6 @@ $ bower install
 
 ``` text
 $ npm run dev
-# open this url in your browser
-# http://localhost:8080/
 ```
 ##deploy
 
