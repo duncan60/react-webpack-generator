@@ -1,7 +1,7 @@
 {
   "name": "webpack-react",
   "version": "0.0.1",
-  "description": "react 0.13.1 and webpack",
+  "description": "react 0.13 and webpack",
   "main": "app/main.js",
   "dependencies": {
     "react": "^0.13.1",

@@ -4,21 +4,20 @@ var webpack           = require('webpack'),
 	HtmlWebpackPlugin = require('html-webpack-plugin'),
 	bower_dir         = __dirname + '/app/bower_components',
 	autoprefixer      = require('autoprefixer-core'),
-	csswring          = require('csswring'),
-	fileLoader = 'file-loader?name=[path][name].[ext]';
+	csswring          = require('csswring');
 module.exports = function(options) {
-	var outputPath = options.outputPath;
-	var entry = {
+	var outputPath = options.outputPath,
+		entry = {
 			bundle  : null,
 			vendors : null
+		},
+		vendors = [],
+		noParse = [],
+		loaders = [],
+		resolve = {
+			alias      : {},
+			extensions : ['', '.css', '.scss', '.js']
 		};
-	var vendors = [];
-	var noParse = [];
-	var loaders = [{ test : /\.(woff|ttf|svg|eot|jpg|png|git)$/, loader: fileLoader }];
-	var resolve = {
-		alias      : {},
-		extensions : ['', '.css', '.scss', '.js']
-	};
 	var plugins = [
 		new webpack.ProvidePlugin({
 			$                : 'jquery',
@@ -35,15 +34,18 @@ module.exports = function(options) {
 			'./app/src/main'
 		];
 		loaders.push(
+			{ test : /\.(woff|ttf|svg|eot|jpg|png|git)$/, loader: 'url-loader' },
 			{ test : /\.(js|jsx)$/, loader:'react-hot!babel', include: path.join(__dirname, 'app/src/')},
 			{ test : /\.scss$/, loader:'style!css!postcss!sass?includePaths[]=' + path.resolve(__dirname, './node_modules/compass-mixins/lib') },
 			{ test : /\.css$/, loader:'style!css' }
 		);
 	}
 
+
 	if (options.status === 'deploy') {
 		entry.bundle = './app/src/main';
 		loaders.push(
+			{ test : /\.(woff|ttf|svg|eot|jpg|png|git)$/, loader: 'url-loader' },
 			{ test : /\.(js|jsx)$/, loader:'babel', include: path.join(__dirname, 'app/src/')},
 			{ test : /\.scss$/, loader:ExtractTextPlugin.extract('style','css!postcss!sass?includePaths[]=' + path.resolve(__dirname, './node_modules/compass-mixins/lib')) },
 			{ test : /\.css$/, loader: ExtractTextPlugin.extract('style', 'css') }

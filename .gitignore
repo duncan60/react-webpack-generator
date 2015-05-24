@@ -7,6 +7,7 @@ us.stackdump
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
+npm-debug.log
 
 node_modules/
 /app/bower_components
