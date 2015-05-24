@@ -3,10 +3,6 @@
   "version": "0.0.1",
   "description": "react 0.13.1 and webpack",
   "main": "app/main.js",
-  "config": {
-    "devHost": "localhost",
-    "devPort": 8080
-  },
   "dependencies": {
     "react": "^0.13.1",
     "webpack": "^1.7.3"
@@ -35,7 +31,7 @@
   },
   "scripts": {
     "test": "webpack-dev-server --config webpack-dev-server.config.js --hot --devtool eval --progress --colors --content-base app",
-    "dev": "node dev-server ./webpack-dev-server.config.js ",
+    "dev": "node dev-server",
     "deploy": "webpack -p --config webpack-deploy.config.js"
   },
   "author": "duncanDu"

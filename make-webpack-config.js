@@ -4,10 +4,8 @@ var webpack           = require('webpack'),
 	HtmlWebpackPlugin = require('html-webpack-plugin'),
 	bower_dir         = __dirname + '/app/bower_components',
 	autoprefixer      = require('autoprefixer-core'),
-	csswring          = require('csswring');
-var pkg = require('./package.json');
-var util = require('util');
-var fileLoader = 'file-loader?name=[path][name].[ext]';
+	csswring          = require('csswring'),
+	fileLoader = 'file-loader?name=[path][name].[ext]';
 module.exports = function(options) {
 	var outputPath = options.outputPath;
 	var entry = {
@@ -31,15 +29,11 @@ module.exports = function(options) {
 	];
 
 	if (options.status === 'dev') {
-		entry.bundle = ['./app/src/main'];
-		entry.bundle.push(
-		    util.format(
-		      'webpack-dev-server/client?http://%s:%d',
-		      pkg.config.devHost,
-		      pkg.config.devPort
-		    )
-		);
-		entry.bundle.push('webpack/hot/dev-server');
+		entry.bundle = [
+			'webpack-dev-server/client?http://localhost:8080',
+			'webpack/hot/only-dev-server',
+			'./app/src/main'
+		];
 		loaders.push(
 			{ test : /\.(js|jsx)$/, loader:'react-hot!babel', include: path.join(__dirname, 'app/src/')},
 			{ test : /\.scss$/, loader:'style!css!postcss!sass?includePaths[]=' + path.resolve(__dirname, './node_modules/compass-mixins/lib') },
@@ -85,6 +79,7 @@ module.exports = function(options) {
 	//Vendor plugin
 	addVendor('js', 'jquery', bower_dir + '/jquery/dist/jquery.min.js');
 	addVendor('js', 'bootstrap', bower_dir + '/bootstrap/dist/js/bootstrap.min.js');
+
 	return{
 		entry   : entry,
 		output  : {
@@ -97,11 +92,7 @@ module.exports = function(options) {
 		},
 		postcss : [autoprefixer, csswring],
 		resolve : resolve,
-		plugins : plugins,
-		devServer: {
-		    contentBase: 'app',
-		    hot: true
-		}
+		plugins : plugins
 	}
 }
 
